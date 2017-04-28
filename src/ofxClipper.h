@@ -47,7 +47,7 @@ protected:
      */
     ofPath execute(ClipperLib::ClipType clipType, ofPath subjectPath,ofPath clipPath);
     ofPath getofPathFromClipperPathNew(ClipperLib::Paths clipPaths);
-    ClipperLib::Paths getClipperPathsFromofPathNew(ofPath path);
+    ClipperLib::Paths getClipperPathsFromofPath(ofPath path);
     ofVec2f minVals;
 	ofVec2f maxVals;
     

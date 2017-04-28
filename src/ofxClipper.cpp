@@ -35,7 +35,10 @@ ofPath ofxClipper::getMultiUnion(vector<ofPath> inPath) {
 }
 ofPath ofxClipper::getUnion(ofPath subPath,ofPath clipPath) {
     ofPath p;
+    cout<<"get ready to excute"<<endl;
     p= execute(ctUnion, subPath,clipPath);
+    
+    cout<<"end to excute"<<endl;
     return p;
 }
 ofPath ofxClipper::getIntersection(ofPath subPath,ofPath clipPath) {
@@ -126,7 +129,7 @@ ofPath  ofxClipper::getPathFromPolylines(vector<ofPolyline> inpolylines){
     return path;
     
 }
-ClipperLib::Paths ofxClipper::getClipperPathsFromofPathNew(ofPath inpath){
+ClipperLib::Paths ofxClipper::getClipperPathsFromofPath(ofPath inpath){
     ClipperLib::Paths returnClipperPaths;
     ClipperLib::Path clipperPath;
     // get commands faster
@@ -189,23 +192,29 @@ ofPath ofxClipper::getofPathFromClipperPathNew(ClipperLib::Paths clipPaths){
 }
 
 ofPath ofxClipper::execute(ClipperLib::ClipType clipType, ofPath subjectPath,ofPath clipPath) {
-    
+    if(0){
     ClipperLib::Clipper clpr;
-    //add subject piece
+        
+//        cout<<"seem call clpr finish"<<endl;
     
+    cout<<"seem delete clpr finish"<<endl;
+//    //add subject piece
+//    
     ClipperLib::Paths subjectP;
-    subjectP=getClipperPathsFromofPathNew(subjectPath);
-    clpr.AddPaths(subjectP, ptSubject,true);
-    //add clip piece
+    subjectP=getClipperPathsFromofPath(subjectPath);
+//    clpr.AddPaths(subjectP, ptSubject,true);
+//    //add clip piece
     ClipperLib::Paths clipP;
-    clipP=getClipperPathsFromofPathNew(clipPath);
+    clipP=getClipperPathsFromofPath(clipPath);
     clpr.AddPaths(clipP,ptClip,true);
-    // excute
+//    // excute
     ClipperLib::Paths output;
     clpr.Execute(clipType, output, pftEvenOdd, pftEvenOdd);
     clpr.Clear();
-    
-    return getofPathFromClipperPathNew(output);
+    }
+    ofPath path;
+    return path;
+//    return getofPathFromClipperPathNew(output);
     
 }
 // ofPath in

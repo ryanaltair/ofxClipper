@@ -882,6 +882,8 @@ bool HorzSegmentsOverlap(cInt seg1a, cInt seg1b, cInt seg2a, cInt seg2b)
 
 ClipperBase::ClipperBase() //constructor
 {
+    
+    cout<<"now we made clipperBase "<<endl;
   m_CurrentLM = m_MinimaList.begin(); //begin() == end() here
   m_UseFullRange = false;
 }
@@ -889,6 +891,8 @@ ClipperBase::ClipperBase() //constructor
 
 ClipperBase::~ClipperBase() //destructor
 {
+    
+    cout<<"now we delete clipperBase "<<endl;
   Clear();
 }
 //------------------------------------------------------------------------------
@@ -1044,6 +1048,7 @@ TEdge* ClipperBase::ProcessBound(TEdge* E, bool NextIsForward)
 
 bool ClipperBase::AddPath(const Path &pg, PolyType PolyTyp, bool Closed)
 {
+    return false;
 #ifdef use_lines
   if (!Closed && PolyTyp == ptClip)
     throw clipperException("AddPath: Open paths must be subject.");
@@ -1223,8 +1228,17 @@ bool ClipperBase::AddPath(const Path &pg, PolyType PolyTyp, bool Closed)
 
 bool ClipperBase::AddPaths(const Paths &ppg, PolyType PolyTyp, bool Closed)
 {
+    
+//    if( ppg.size()>0){
+//        
+//        if(AddPath(ppg[0], PolyTyp, Closed)){
+//         return true;
+//        }else{return  false;
+//        }
+//    }
   bool result = false;
     for (Paths::size_type i = 0; i < ppg.size(); ++i){
+        continue;
         if (AddPath(ppg[i], PolyTyp, Closed)){
             result = true;
         }
@@ -1235,7 +1249,7 @@ bool ClipperBase::AddPaths(const Paths &ppg, PolyType PolyTyp, bool Closed)
 
 void ClipperBase::Clear()
 {
- 
+    cout<<"we do the clear in clipperBase"<<endl;
   DisposeLocalMinimaList();
   for (EdgeList::size_type i = 0; i < m_edges.size(); ++i)
   {
@@ -1477,6 +1491,7 @@ bool ClipperBase::LocalMinimaPending()
 
 Clipper::Clipper(int initOptions) : ClipperBase() //constructor
 {
+    cout<<"now we made clipper class "<<endl;
   m_ExecuteLocked = false;
   m_UseFullRange = false;
   m_ReverseOutput = ((initOptions & ioReverseSolution) != 0);
@@ -3782,6 +3797,7 @@ DoublePoint GetUnitNormal(const IntPoint &pt1, const IntPoint &pt2)
 
 ClipperOffset::ClipperOffset(double miterLimit, double arcTolerance)
 {
+    cout<<"we made a ClipperOffset"<<endl;
   this->MiterLimit = miterLimit;
   this->ArcTolerance = arcTolerance;
   m_lowest.X = -1;
@@ -3790,6 +3806,8 @@ ClipperOffset::ClipperOffset(double miterLimit, double arcTolerance)
 
 ClipperOffset::~ClipperOffset()
 {
+    
+    cout<<"now we delete clipperOffset "<<endl;
   Clear();
 }
 //------------------------------------------------------------------------------

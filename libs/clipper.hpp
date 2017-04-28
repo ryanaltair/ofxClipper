@@ -58,7 +58,7 @@
 #include <ostream>
 #include <functional>
 #include <queue>
-
+#include <ofMain.h>
 namespace ClipperLib {
 
 enum ClipType { ctIntersection, ctUnion, ctDifference, ctXor };
@@ -137,7 +137,9 @@ class PolyNode
 { 
 public:
     PolyNode();
-    virtual ~PolyNode(){};
+     ~PolyNode(){
+        cout<<"we delete poluNode"<<endl;
+    };
     Path Contour;
     PolyNodes Childs;
     PolyNode* Parent;
@@ -159,7 +161,9 @@ private:
 class PolyTree: public PolyNode
 { 
 public:
-    ~PolyTree(){Clear();};
+    ~PolyTree(){
+        Clear();
+    };
     PolyNode* GetFirst() const;
     void Clear();
     int Total() const;
@@ -209,27 +213,39 @@ typedef std::vector < OutRec* > PolyOutList;
 typedef std::vector < TEdge* > EdgeList;
 typedef std::vector < Join* > JoinList;
 typedef std::vector < IntersectNode* > IntersectList;
+//test only begin
+    class greatTestClsss{
+    public:
+        greatTestClsss(){
+            cout<<"we made greatTestClsss"<<endl;
+        }
+        ~greatTestClsss(){
+            cout<<"we delete greatTestClsss"<<endl;
+        }
+    };
 
+    
+    //test end
 //------------------------------------------------------------------------------
 
 //ClipperBase is the ancestor to the Clipper class. It should not be
 //instantiated directly. This class simply abstracts the conversion of sets of
-//polygon coordinates into edge objects that are stored in a LocalMinima list.
+//polygon coordinates into edge objects that are stored in a fLocalMinima list.
 class ClipperBase
 {
 public:
   ClipperBase();
-  virtual ~ClipperBase();
-  virtual bool AddPath(const Path &pg, PolyType PolyTyp, bool Closed);
+   ~ClipperBase();
+    bool AddPath(const Path &pg, PolyType PolyTyp, bool Closed);
   bool AddPaths(const Paths &ppg, PolyType PolyTyp, bool Closed);
-  virtual void Clear();
+   void Clear();
   IntRect GetBounds();
   bool PreserveCollinear() {return m_PreserveCollinear;};
   void PreserveCollinear(bool value) {m_PreserveCollinear = value;};
 protected:
   void DisposeLocalMinimaList();
   TEdge* AddBoundsToLML(TEdge *e, bool IsClosed);
-  virtual void Reset();
+   void Reset();
   TEdge* ProcessBound(TEdge* E, bool IsClockwise);
   void InsertScanbeam(const cInt Y);
   bool PopScanbeam(cInt &Y);
@@ -258,10 +274,14 @@ protected:
 };
 //------------------------------------------------------------------------------
 
-class Clipper : public virtual ClipperBase
+class Clipper : public  ClipperBase
 {
 public:
   Clipper(int initOptions = 0);
+    ~Clipper(){
+        cout<<"now we delete a clipper class"<<endl;
+    }
+    greatTestClsss justTest;
   bool Execute(ClipType clipType,
       Paths &solution,
       PolyFillType fillType = pftEvenOdd);
@@ -285,7 +305,7 @@ public:
   void ZFillFunction(ZFillCallback zFillFunc);
 #endif
 protected:
-  virtual bool ExecuteInternal();
+   bool ExecuteInternal();
 private:
   JoinList         m_Joins;
   JoinList         m_GhostJoins;
